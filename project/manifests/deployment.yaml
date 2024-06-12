@@ -15,3 +15,6 @@ spec:
             containers:
                 - name: project
                   image: ktatu/project
+                  env:
+                      - name: PORT
+                        value: "3003"
