@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: log-output-dep
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: log-output
+    template:
+        metadata:
+            labels:
+                app: log-output
+        spec:
+            volumes:
+                - name: shared-timestamp
+                  emptyDir: {}
+            containers:
+                - name: log-output-reader
+                  image: ktatu/log-output-reader:1.1
+                  env:
+                      - name: PORT
+                        value: "3002"
+                  volumeMounts:
+                      - name: shared-timestamp
+                        mountPath: /usr/src/app/files
+                - name: log-output-generator
+                  image: ktatu/log-output-generator
+                  volumeMounts:
+                      - name: shared-timestamp
+                        mountPath: /usr/src/app/files
