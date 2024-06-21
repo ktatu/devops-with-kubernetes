@@ -15,17 +15,22 @@ spec:
             volumes:
                 - name: shared-timestamp
                   emptyDir: {}
+                - name: shared-pings
+                  persistentVolumeClaim:
+                      claimName: log-output-claim
             containers:
                 - name: log-output-reader
-                  image: ktatu/log-output-reader:1.1
+                  image: ktatu/log-output-reader:1.9
                   env:
                       - name: PORT
                         value: "3002"
                   volumeMounts:
                       - name: shared-timestamp
-                        mountPath: /usr/src/app/files
+                        mountPath: /usr/src/app/files/timestamp
+                      - name: shared-pings
+                        mountPath: /usr/src/app/files/pings
                 - name: log-output-generator
-                  image: ktatu/log-output-generator
+                  image: ktatu/log-output-generator:1.1
                   volumeMounts:
                       - name: shared-timestamp
-                        mountPath: /usr/src/app/files
+                        mountPath: /usr/src/app/files/timestamp
