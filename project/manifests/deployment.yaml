@@ -12,9 +12,16 @@ spec:
             labels:
                 app: project
         spec:
+            volumes:
+                - name: random-images
+                  persistentVolumeClaim:
+                      claimName: project-claim
             containers:
                 - name: project
-                  image: ktatu/project
+                  image: ktatu/project:1.2
                   env:
                       - name: PORT
                         value: "3003"
+                  volumeMounts:
+                      - name: random-images
+                        mountPath: /usr/src/app/public/random_image
