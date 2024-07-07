@@ -12,16 +12,16 @@ spec:
             labels:
                 app: pong
         spec:
-            volumes:
-                - name: shared-pings
-                  persistentVolumeClaim:
-                      claimName: log-output-claim
+            #  volumes:
+            #  - name: shared-pings
+            #    persistentVolumeClaim:
+            #        claimName: log-output-claim
             containers:
                 - name: pong
-                  image: ktatu/pong:1.9
+                  image: ktatu/pong:2.0
                   env:
                       - name: PORT
                         value: "3000"
-                  volumeMounts:
-                      - name: shared-pings
-                        mountPath: /usr/src/app/files/pings
+                #  volumeMounts:
+                #    - name: shared-pings
+                #      mountPath: /usr/src/app/files/pings

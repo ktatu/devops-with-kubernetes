@@ -7,9 +7,9 @@ let pongCounter = 0
 const pongFilePath = "/usr/src/app/files/pings/pongs.txt"
 
 app.get("/pingpong", (req, res) => {
-    res.send("pong " + pongCounter)
+    res.json({ pingCount: pongCounter })
     pongCounter += 1
-    writePongCount()
+    //writePongCount()
 })
 
 app.listen(config.PORT, () => {
