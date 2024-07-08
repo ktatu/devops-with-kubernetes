@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Kube-project</title>
+        <style>
+            body {
+                padding-top: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div>
+                <img src="random_image/image.jpg" />
+            </div>
+            <div>
+                <input
+                    type="text"
+                    maxlength="140"
+                />
+                <input
+                    type="submit"
+                    value="Add todo"
+                />
+            </div>
+            <ul id="todos">
+                <li>placeholder</li>
+            </ul>
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    fetch("/todos")
+                        .then((res) => res.json())
+                        .then((todos) => {
+                            const todosList = document.getElementById("todos")
+                            todos.forEach((todo) => {
+                                const listItem = document.createElement("li")
+                                listItem.textContent = todo
+                                todosList.appendChild(listItem)
+                            })
+                        })
+                        .catch((err) => console.log("Error fetching todos ", err))
+                })
+            </script>
+        </div>
+    </body>
+</html>
