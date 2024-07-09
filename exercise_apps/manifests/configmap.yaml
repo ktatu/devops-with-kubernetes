@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: log-output-configmap
+    namespace: exercises-namespace
+data:
+    serverconfig.txt: |
+        "text file information"
+    message: "env var message"

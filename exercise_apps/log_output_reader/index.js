@@ -1,17 +1,29 @@
 const crypto = require("crypto")
 const express = require("express")
 const app = express()
-const config = require("./config")
+const config = require("./envVars")
 const fs = require("fs")
 const axios = require("axios")
 
 const timestampPath = "/usr/src/app/files/timestamp/timestamp.txt"
-const pingPath = "/usr/src/app/files/pings/pongs.txt"
+const svConfigPath = "/usr/src/app/files/config/serverconfig.txt"
 
 const generateRandomString = () => crypto.randomBytes(20).toString("hex")
 
 app.get("/", async (req, res) => {
     let resString = ""
+
+    try {
+        const fileContent = fs.readFileSync(svConfigPath, "utf8")
+        resString += `file content: ${fileContent}`
+    } catch (error) {
+        console.log("Error reading server config")
+    }
+
+    resString += "<br>"
+
+    resString += `env variable: ${config.ENV_MESSAGE}`
+    resString += "<br>"
 
     try {
         const timestamp = fs.readFileSync(timestampPath, "utf8")
@@ -22,16 +34,6 @@ app.get("/", async (req, res) => {
     }
 
     resString += "<br>"
-
-    /*
-    const pings = fs.readFileSync(pingPath, "utf8")
-
-    if (pings) {
-        resString += pings
-    } else {
-        resString += "Error reading pings count"
-    }
-    */
 
     const pingCount = await getPings()
     const pingString = "Ping / Pongs: " + pingCount
