@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: pong-dep
+    namespace: exercises-namespace
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: pong
+    template:
+        metadata:
+            labels:
+                app: pong
+        spec:
+            #  volumes:
+            #  - name: shared-pings
+            #    persistentVolumeClaim:
+            #        claimName: log-output-claim
+            containers:
+                - name: pong
+                  image: ktatu/pong:2.0
+                  env:
+                      - name: PORT
+                        value: "3000"
+                #  volumeMounts:
+                #    - name: shared-pings
+                #      mountPath: /usr/src/app/files/pings
