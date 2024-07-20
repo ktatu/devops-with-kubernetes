@@ -13,16 +13,19 @@ spec:
             labels:
                 app: pong
         spec:
-            #  volumes:
-            #  - name: shared-pings
-            #    persistentVolumeClaim:
-            #        claimName: log-output-claim
             containers:
                 - name: pong
-                  image: ktatu/pong:2.0
+                  image: ktatu/pong:2.10
                   env:
                       - name: PORT
                         value: "3000"
-                #  volumeMounts:
-                #    - name: shared-pings
-                #      mountPath: /usr/src/app/files/pings
+                      - name: POSTGRES_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: postgres-password
+                                key: POSTGRES_PASSWORD
+                      - name: POSTGRES_HOST
+                        valueFrom:
+                            secretKeyRef:
+                                name: postgres-password
+                                key: POSTGRES_HOST

@@ -1,27 +1,18 @@
 const express = require("express")
 const app = express()
 const config = require("./config")
-const fs = require("fs")
+const database = require("./database")
 
 let pongCounter = 0
-const pongFilePath = "/usr/src/app/files/pings/pongs.txt"
 
-app.get("/pingpong", (req, res) => {
+app.get("/pingpong", (_req, res) => {
     res.json({ pingCount: pongCounter })
     pongCounter += 1
-    //writePongCount()
+    database.addPing(pongCounter)
 })
 
-app.listen(config.PORT, () => {
+app.listen(config.PORT, async () => {
     console.log("Server running on port " + config.PORT)
+    await database.connect()
+    pongCounter = await database.getPings()
 })
-
-const writePongCount = () => {
-    fs.writeFile(pongFilePath, pongCounter.toString(), (error) => {
-        if (error) {
-            console.log("Error writing pong file: ", error)
-        } else {
-            console.log("succesfully written to pong file")
-        }
-    })
-}
