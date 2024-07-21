@@ -14,8 +14,13 @@
             <div>
                 <img src="random_image/image.jpg" />
             </div>
-            <div>
+            <form
+                action="/todos"
+                method="post"
+                onsubmit="submitHandler(event)"
+            >
                 <input
+                    id="todo-input"
                     type="text"
                     maxlength="140"
                 />
@@ -23,7 +28,7 @@
                     type="submit"
                     value="Add todo"
                 />
-            </div>
+            </form>
             <ul id="todos">
                 <li>placeholder</li>
             </ul>
@@ -41,6 +46,27 @@
                         })
                         .catch((err) => console.log("Error fetching todos ", err))
                 })
+
+                const submitHandler = (event) => {
+                    event.preventDefault()
+
+                    const todosList = document.getElementById("todos")
+                    const listItem = document.createElement("li")
+                    const todoInput = document.getElementById("todo-input")
+
+                    listItem.textContent = todoInput.value
+                    todosList.appendChild(listItem)
+
+                    todoInput.value = ""
+
+                    fetch("/todos", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ todo: listItem.textContent }),
+                    })
+                }
             </script>
         </div>
     </body>

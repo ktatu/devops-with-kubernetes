@@ -15,7 +15,17 @@ spec:
         spec:
             containers:
                 - name: project
-                  image: ktatu/todo-backend
+                  image: ktatu/todo-backend:2.12
                   env:
                       - name: PORT
                         value: "3000"
+                      - name: POSTGRES_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: postgres-vars
+                                key: POSTGRES_PASSWORD
+                      - name: POSTGRES_HOST
+                        valueFrom:
+                            secretKeyRef:
+                                name: postgres-vars
+                                key: POSTGRES_HOST

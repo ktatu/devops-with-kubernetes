@@ -19,7 +19,7 @@ spec:
                       claimName: project-claim
             containers:
                 - name: project
-                  image: ktatu/todo-app:1.2
+                  image: ktatu/todo-app:2.1
                   env:
                       - name: PORT
                         value: "3003"

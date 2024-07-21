@@ -1,23 +1,24 @@
 const express = require("express")
 const app = express()
 const config = require("./config")
+const database = require("./database")
 
 app.use(express.json())
 
-let todos = ["Buy milk", "Work on Devops with Kubernetes"]
+app.get("/todos", async (req, res) => {
+    const todosFromDb = await database.getTodos()
 
-app.get("/todos", (req, res) => {
-    res.json(todos)
+    res.json(todosFromDb)
 })
 
 app.post("/todos", (req, res) => {
     const newTodo = req.body.todo
-
-    todos = todos.concat(newTodo)
+    database.addTodo(newTodo)
 
     res.sendStatus(200)
 })
 
-app.listen(config.PORT, () => {
+app.listen(config.PORT, async () => {
     console.log(`Todo-backend listening on port ${config.PORT}`)
+    await database.connect()
 })
