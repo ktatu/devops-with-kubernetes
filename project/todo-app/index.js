@@ -17,7 +17,6 @@ app.listen(config.PORT, () => {
 setInterval(async () => {
     getImage()
 }, 3600000)
-// 3600000
 
 const getImage = () => {
     const writer = fs.createWriteStream("./public/random_image/image.jpg")
