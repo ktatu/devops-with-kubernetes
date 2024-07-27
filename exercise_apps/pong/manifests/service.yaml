@@ -4,10 +4,10 @@ metadata:
     name: pong-svc
     namespace: exercises-namespace
 spec:
-    type: ClusterIP
+    type: LoadBalancer
     selector:
         app: pong
     ports:
-        - port: 2345
+        - port: 80
           protocol: TCP
           targetPort: 3000
