@@ -15,7 +15,7 @@ spec:
         spec:
             containers:
                 - name: pong
-                  image: ktatu/pong:2.10
+                  image: ktatu/pong:2.11
                   env:
                       - name: PORT
                         value: "3000"

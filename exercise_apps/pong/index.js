@@ -5,6 +5,10 @@ const database = require("./database")
 
 let pongCounter = 0
 
+app.get("/", (_req, res) => {
+    res.sendStatus(200)
+})
+
 app.get("/pingpong", (_req, res) => {
     res.json({ pingCount: pongCounter })
     pongCounter += 1

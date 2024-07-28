@@ -4,7 +4,7 @@ metadata:
     name: pong-svc
     namespace: exercises-namespace
 spec:
-    type: LoadBalancer
+    type: NodePort
     selector:
         app: pong
     ports:

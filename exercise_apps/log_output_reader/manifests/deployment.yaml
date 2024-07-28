@@ -24,12 +24,12 @@ spec:
                             path: "serverconfig.txt"
             containers:
                 - name: log-output-reader
-                  image: ktatu/log-output-reader:2.9
+                  image: ktatu/log-output-reader:2.11
                   env:
                       - name: PORT
                         value: "3002"
                       - name: PINGS_URL
-                        value: "http://pong-svc:2345/pingpong"
+                        value: "http://pong-svc:80/pingpong"
                       - name: MESSAGE
                         valueFrom:
                             configMapKeyRef:

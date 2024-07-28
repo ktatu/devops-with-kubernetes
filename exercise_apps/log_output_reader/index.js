@@ -37,7 +37,6 @@ app.get("/", async (req, res) => {
 
     const pingCount = await getPings()
     const pingString = "Ping / Pongs: " + pingCount
-
     resString += pingString
 
     res.send(resString)
