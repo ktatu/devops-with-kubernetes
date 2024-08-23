@@ -2,6 +2,7 @@ name: Release todo-project
 
 on:
     push:
+    workflow_dispatch:
 
 env:
     PROJECT_ID: ${{ secrets.PROJECT_ID }}
