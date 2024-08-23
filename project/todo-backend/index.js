@@ -2,12 +2,17 @@ const express = require("express")
 const app = express()
 const config = require("./config")
 const database = require("./database")
+const cors = require("cors")
 
+app.use(cors())
 app.use(express.json())
+
+app.get("/", (_req, res) => {
+    res.sendStatus(200)
+})
 
 app.get("/todos", async (_req, res) => {
     const todosFromDb = await database.getTodos()
-
     res.json(todosFromDb)
 })
 

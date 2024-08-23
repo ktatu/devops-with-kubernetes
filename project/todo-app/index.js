@@ -3,10 +3,17 @@ const app = express()
 const config = require("./config")
 const axios = require("axios")
 const fs = require("fs")
+const cors = require("cors")
 
+app.use(cors())
 app.use(express.static("public"))
 
 app.get("/", (req, res) => {
+    res.setHeader("X-Powered-By", "Foo Bar")
+    res.setHeader(
+        "Content-Security-Policy",
+        "default-src 'self'; script-src-elem 'unsafe-inline'; script-src 'unsafe-inline'; style-src 'unsafe-inline'"
+    )
     res.sendFile("./public/html/main.html", { root: __dirname })
 })
 

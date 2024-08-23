@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+    - todo-app/manifests/deployment.yaml
+    - todo-app/manifests/service.yaml
+    - todo-backend/manifests/deployment.yaml
+    - todo-backend/manifests/service.yaml
+    - manifests/persistentvolumeclaim.yaml
+    - manifests/postgres.yaml
+    - manifests/ingress.yaml
+images:
+    - name: TODO-APP/IMAGE
+      newName: ktatu/todo-app:2.15
+    - name: TODO-BACKEND/IMAGE
+      newName: ktatu/todo-backend:2.13

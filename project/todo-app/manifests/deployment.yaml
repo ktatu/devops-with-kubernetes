@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: project-dep
+    name: todo-app-dep
     namespace: project-namespace
 spec:
     replicas: 1
     selector:
         matchLabels:
-            app: project
+            app: todo-app
     template:
         metadata:
             labels:
-                app: project
+                app: todo-app
         spec:
             volumes:
                 - name: random-images
                   persistentVolumeClaim:
-                      claimName: project-claim
+                      claimName: todo-app-claim
             containers:
-                - name: project
-                  image: ktatu/todo-app:2.1
+                - name: todo-app
+                  image: TODO-APP/IMAGE
                   env:
                       - name: PORT
                         value: "3003"
