@@ -2,6 +2,8 @@ name: Release todo-project
 
 on:
     push:
+        paths:
+            - "project/**"
     workflow_dispatch:
 
 env:
