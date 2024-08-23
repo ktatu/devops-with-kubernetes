@@ -63,6 +63,6 @@ jobs:
                   kustomize edit set image TODO-APP/IMAGE=gcr.io/$PROJECT_ID/$IMAGE_APP:$BRANCH-$GITHUB_SHA
                   kustomize edit set image TODO-BACKEND/IMAGE=gcr.io/$PROJECT_ID/$IMAGE_BACKEND:$BRANCH-$GITHUB_SHA
                   kustomize build . | kubectl apply -f -
-                  kubectl rollout status deployment/$APP_DEPLOYMENT
-                  kubectl rollout status deployment/$BACKEND_DEPLOYMENT
-                  kubectl get services -o wide
+                  kubectl rollout status deployment/$APP_DEPLOYMENT --namespace=project-namespace
+                  kubectl rollout status deployment/$BACKEND_DEPLOYMENT --namespace=project-namespace
+                  kubectl get services -o wide --namespace=project-namespace
