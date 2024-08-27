@@ -8,6 +8,7 @@ resources:
     - manifests/persistentvolumeclaim.yaml
     - manifests/postgres.yaml
     - manifests/ingress.yaml
+    - manifests/secret.yaml
 images:
     - name: TODO-APP/IMAGE
       newName: ktatu/todo-app:2.15
