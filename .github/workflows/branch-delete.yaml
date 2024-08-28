@@ -1,0 +1,38 @@
+name: Delete Environment
+
+on: delete
+
+jobs:
+    delete:
+        if: github.event.ref_type == 'branch'
+        defaults:
+            run:
+                working-directory: ./project
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: "Set up Cloud SDK"
+              uses: google-github-actions/setup-gcloud@v2
+
+            - name: "Use gcloud CLI"
+              run: gcloud info
+            - run: gcloud --quiet auth configure-docker
+
+            - name: "Get GKE credentials"
+              uses: "google-github-actions/get-gke-credentials@v2"
+              with:
+                  cluster_name: "${{ env.GKE_CLUSTER }}"
+                  project_id: "${{ env.PROJECT_ID }}"
+                  location: "${{ env.GKE_ZONE }}"
+
+            - name: Set up Kustomize
+              uses: imranismail/setup-kustomize@v2.1.0
+
+            - name: Delete environment
+              run: |-
+                  kubectl config set-context --current --namespace=${GITHUB_REF#refs/heads/}
+                  kustomize edit set namespace ${GITHUB_REF#refs/heads/}
+                  kustomize build . | kubectl delete -f -
+                  kubectl delete namespace ${GITHUB_REF#refs/heads/}
