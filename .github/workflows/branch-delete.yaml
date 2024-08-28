@@ -2,6 +2,12 @@ name: Delete Environment
 
 on: delete
 
+env:
+    PROJECT_ID: ${{ secrets.PROJECT_ID }}
+    GKA_SA_KEY: ${{ secrets.GOOGLE_CREDENTIALS }}
+    GKE_CLUSTER: dwk-cluster
+    GKE_ZONE: europe-north1-b
+
 jobs:
     delete:
         if: github.event.ref_type == 'branch'
