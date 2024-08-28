@@ -1,6 +1,8 @@
 name: Delete Environment
 
-on: delete
+on:
+    delete:
+    workflow_dispatch:
 
 env:
     PROJECT_ID: ${{ secrets.PROJECT_ID }}
@@ -37,12 +39,5 @@ jobs:
                   project_id: "${{ env.PROJECT_ID }}"
                   location: "${{ env.GKE_ZONE }}"
 
-            - name: Set up Kustomize
-              uses: imranismail/setup-kustomize@v2.1.0
-
             - name: Delete environment
-              run: |-
-                  kubectl config set-context --current --namespace=${GITHUB_REF#refs/heads/}
-                  kustomize edit set namespace ${GITHUB_REF#refs/heads/}
-                  kustomize build . | kubectl delete -f -
-                  kubectl delete namespace ${GITHUB_REF#refs/heads/}
+              run: echo "Clean up for branch ${{ github.event.ref }}"
