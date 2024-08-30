@@ -1,0 +1,13 @@
+Repository for exercises of the course [Devops with Kubernetes](https://devopswithkubernetes.com/)
+
+## Exercise 3.06: DBaaS vs DIY
+
+Perhaps the biggest (and most obvious) benefit of a database as a service are the various features provided on top of hosting the database itself. A critical feature that any database needs is backups and every DBaaS provider I've looked at including Redis, Google and IBM has tools for handling them. A DIY solution would have to figure out its own methods of handling backups and saving them.
+
+These service-provided features most likely make initial setup easier. Using DBaaS's features means using tried-and-tested solutions as the provider naturally wants to ensure that everything within their own ecosystem works well together. It will also be easier to fix issues if and when they occur, as the provider most likely can offer support. It's also likely that other people have faced the same issues and the answers are already out there. DIY means more possible combinations in terms of features, especially if they originate from various different sources or ecosystems. Naturally more variations means that it is less likely that somebody else has encountered the same issue and is able to help, and possibly no first-party support is available.
+
+I would have to imagine that the restrictiveness of a database service is also most likely a benefit in terms of cost of initialization and maintenance. Buying into a service means less developer time spent on comparing and investigating different DIY solutions. The service provider also (at least ideally) ensures that different tools and features work together even as they get updated. Maintenance might also be cheaper and more performant with a DBaaS as the database's working environment is optimized for database use. This could for example mean specialized hardware that makes operations faster.
+
+A possible downside of DBaaS for a smaller project is that at least some of the providers seem to focus almost solely on enterprise users' needs. This focus is evident based on how providers such as [IBM](https://www.ibm.com/cloud/databases) and [Google](https://cloud.google.com/sql) describe their platforms and features. This could in some cases mean that a self-hosted database or a DIY-solution hosted in a more generalized cloud service would be cheaper.
+
+A DBaaS could be the go-to choice unless a project has specific needs or priorities that cannot be met by a provider cheaply. This could mean that some critical feature is lacking or not available. The team could also highly value the freedom of a DIY-solution, for example in terms of not getting too tightly tied down to a single ecosystem and maintaining the ability to switch platforms as needed.
